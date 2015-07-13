@@ -1,6 +1,7 @@
+#![feature(str_escape)]
+
 extern crate hyper;
 extern crate rustc_serialize;
+extern crate html5ever;
 
-pub mod cardRetriever;
-pub mod wikiaCardRetriever;
-pub mod cardInfo;
+pub mod card_retriever;

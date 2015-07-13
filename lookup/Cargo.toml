@@ -6,3 +6,9 @@ authors = ["Near <nearsy.h@gmail.com>"]
 [dependencies]
 rustc-serialize = "*"
 hyper = "*"
+string_cache = "*"
+string_cache_plugin = "*"
+tendril = "0.1"
+
+[dependencies.html5ever]
+git = "https://github.com/servo/html5ever/"
