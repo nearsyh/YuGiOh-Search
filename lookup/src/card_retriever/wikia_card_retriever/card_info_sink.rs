@@ -82,14 +82,16 @@ impl TreeSink for CardInfoSink {
         match child {
             AppendNode(n)
                 => {
-                    if &(*self.elem_name(n).local) == "td" {
+                    if self.in_header && &(*self.elem_name(n).local) == "td" {
                         self.in_header = false;
                         self.values.push(self.temp.replace("\\n", ""));
+                        println!("{} {}", self.values.len(), self.temp.replace("\\n", ""));
                         self.temp = String::new();
                     }
-                    if &(*self.elem_name(n).local) == "tr" {
+                    if self.in_data && &(*self.elem_name(n).local) == "tr" {
                         self.in_data = false;
                         self.values.push(self.temp.replace("\\n", ""));
+                        println!("{} {}", self.values.len(), self.temp.replace("\\n", ""));
                         self.temp = String::new();
                     }
                 },
@@ -146,8 +148,9 @@ impl ParseResult for CardInfo {
                 "Ritual Monster required" => ret.ritual_monster = Some(sink.values[2*i+1].clone()),
                 _ => continue,
             }
-            println!("{} {}", sink.values[2*i], sink.values[2*i+1]);
+            //println!("{} {}", sink.values[2*i], sink.values[2*i+1]);
         }
+        //println!("{}", ret.name.clone().unwrap());
         ret
     }
 }

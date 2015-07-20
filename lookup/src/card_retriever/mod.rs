@@ -1,13 +1,16 @@
-use std::collections::HashMap;
-
 pub mod wikia_card_retriever;
 mod database;
 
+use std::collections::HashMap;
+
 pub trait CardRetriever {
     fn retrieve_card_info() -> HashMap<String, CardInfo>;
-    fn dump_to_database(&HashMap<String, CardInfo>) {
-        
-    }
+}
+
+#[test]
+fn test() {
+    let conn = database::DatabaseConnecter::connect("postgres://postgres@localhost/yugioh");
+    conn.create_with_card_info(&wikia_card_retriever::WikiaCardRetriever::retrieve_card_info());
 }
 
 pub struct CardInfo {
